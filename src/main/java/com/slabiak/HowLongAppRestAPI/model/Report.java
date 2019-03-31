@@ -1,8 +1,8 @@
 package com.slabiak.HowLongAppRestAPI.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -18,13 +18,20 @@ public class Report extends BaseEntity{
     @Column(name="created_by")
     private String createdBy;
 
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="restaurant_id")
+    private Restaurant restaurant;
+
     public Report(){
 
     }
 
-    public Report(int waitingTime, String createdBy) {
+    public Report(int waitingTime, String createdBy, Date createdAt,Restaurant restaurant) {
         this.waitingTime = waitingTime;
         this.createdBy = createdBy;
+        this.createdAt = createdAt;
+        this.restaurant = restaurant;
     }
 
     public Integer getWaitingTime() {
@@ -49,5 +56,13 @@ public class Report extends BaseEntity{
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 }

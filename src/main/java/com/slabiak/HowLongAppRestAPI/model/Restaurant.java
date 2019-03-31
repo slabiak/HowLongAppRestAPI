@@ -20,8 +20,7 @@ public class Restaurant extends BaseEntity implements Comparable {
     @Column(name="photo_reference")
     private String photo_reference;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="restaurant_id")
+    @OneToMany(mappedBy="restaurant", cascade=CascadeType.ALL)
     private List<Report> reports;
 
     @Transient
