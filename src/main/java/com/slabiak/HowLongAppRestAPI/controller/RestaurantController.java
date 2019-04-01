@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/restaurants")
+@RequestMapping("/api/restaurants")
 public class RestaurantController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class RestaurantController {
     }
 
     @PostMapping()
-    public Restaurant createRestaurnat(@RequestParam("name")String name,@RequestParam("address") String address,@RequestParam("google_id") String google_id,@RequestParam("imageURL") String imageURL){
-        return restaurantService.createRestaurant(name,address,google_id,imageURL);
+    public Restaurant createRestaurnat(@RequestBody Restaurant restaurant){
+        return restaurantService.createRestaurant(restaurant);
     }
 }

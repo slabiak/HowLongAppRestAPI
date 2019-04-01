@@ -8,5 +8,5 @@ public interface RestaurantService {
 
     Restaurant getRestaurantById(int restaurantId);
     List<Restaurant> getAllRestaurants();
-    Restaurant createRestaurant(String name, String address, String google_id,String imageURL);
+    Restaurant createRestaurant(Restaurant restaurant);
 }

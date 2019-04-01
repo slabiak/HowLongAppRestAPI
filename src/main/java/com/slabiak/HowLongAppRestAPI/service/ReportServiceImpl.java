@@ -20,8 +20,9 @@ public class ReportServiceImpl implements ReportService {
     ReportRepository reportRepository;
 
     @Override
-    public Report addReport(int restaurantId, int waitingTime, String createdBy) {
-        Report report = new Report(waitingTime,createdBy,new Date(),restaurantService.getRestaurantById(restaurantId));
+    public Report addReport(Report report, int restaurantId) {
+        report.setCreatedAt(new Date());
+        report.setRestaurant(restaurantService.getRestaurantById(restaurantId));
         reportRepository.save(report);
         return report;
     }

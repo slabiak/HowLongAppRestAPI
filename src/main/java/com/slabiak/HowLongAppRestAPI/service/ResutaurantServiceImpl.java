@@ -31,8 +31,7 @@ public class ResutaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public Restaurant createRestaurant(String name, String address, String google_id, String imageURL) {
-        Restaurant restaurant = new Restaurant(name,address,google_id,imageURL);
+    public Restaurant createRestaurant(Restaurant restaurant) {
         restaurantRepository.save(restaurant);
         return restaurant;
     }
