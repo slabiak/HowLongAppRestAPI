@@ -15,8 +15,8 @@ public class ReportController {
     ReportService reportService;
 
     @GetMapping()
-    public List<Report> getAllReports(){
-        return reportService.getAllReports();
+    public List<Report> getAllReportsForRestaurant(@PathVariable("restaurantId") int restaurantId){
+        return reportService.getReportsByRestaurant(restaurantId);
     }
 
     @GetMapping("/{reportId}")
