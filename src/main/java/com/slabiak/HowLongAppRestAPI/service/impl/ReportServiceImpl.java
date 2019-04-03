@@ -1,8 +1,11 @@
-package com.slabiak.HowLongAppRestAPI.service;
+package com.slabiak.HowLongAppRestAPI.service.impl;
 
 import com.slabiak.HowLongAppRestAPI.exceptions.ReportNotFoundException;
 import com.slabiak.HowLongAppRestAPI.model.Report;
 import com.slabiak.HowLongAppRestAPI.repository.ReportRepository;
+import com.slabiak.HowLongAppRestAPI.service.ReportService;
+import com.slabiak.HowLongAppRestAPI.service.RestaurantService;
+import com.slabiak.HowLongAppRestAPI.util.HelperMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,4 +44,21 @@ public class ReportServiceImpl implements ReportService {
             throw new ReportNotFoundException(String.format("Report with id %d is not found.",reportId));
         }
     }
+
+    @Override
+    public void deleteExpiredReports() {
+        for(Report report : getAllReports()){
+            Date expire = HelperMethods.addMinutesToDate(30,report.getCreatedAt());
+            Date now = new Date(System.currentTimeMillis());
+            if(now.after(expire)){
+                deleteReportById(report.getId());
+            }
+        }
+    }
+
+    @Override
+    public void deleteReportById(int reportId) {
+        reportRepository.deleteById(reportId);
+    }
+
 }

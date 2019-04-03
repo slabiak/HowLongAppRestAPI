@@ -8,5 +8,7 @@ public interface ReportService {
     Report addReport(Report report, int restaurantId);
     List<Report> getAllReports();
     Report getReportById(int reportId);
+    void deleteExpiredReports();
+    void deleteReportById(int reportId);
 
 }

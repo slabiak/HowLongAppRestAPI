@@ -1,8 +1,9 @@
-package com.slabiak.HowLongAppRestAPI.service;
+package com.slabiak.HowLongAppRestAPI.service.impl;
 
 import com.slabiak.HowLongAppRestAPI.exceptions.RestaurantNotFoundException;
 import com.slabiak.HowLongAppRestAPI.model.Restaurant;
 import com.slabiak.HowLongAppRestAPI.repository.RestaurantRepository;
+import com.slabiak.HowLongAppRestAPI.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
