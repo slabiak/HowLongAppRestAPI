@@ -1,5 +1,6 @@
 package com.slabiak.HowLongAppRestAPI.service.impl;
 
+import com.slabiak.HowLongAppRestAPI.exceptions.RestaurantAlreadyExistsException;
 import com.slabiak.HowLongAppRestAPI.exceptions.RestaurantNotFoundException;
 import com.slabiak.HowLongAppRestAPI.model.Restaurant;
 import com.slabiak.HowLongAppRestAPI.repository.RestaurantRepository;
@@ -22,7 +23,7 @@ public class ResutaurantServiceImpl implements RestaurantService {
         if(restaurant.isPresent()){
             return restaurant.get();
          } else{
-            throw new RestaurantNotFoundException(String.format("Restaurant with id %d is not found.",restaurantId));
+            throw new RestaurantNotFoundException(String.format("Restauacja z id %d nieznaleziona",restaurantId));
         }
     }
 
@@ -33,8 +34,21 @@ public class ResutaurantServiceImpl implements RestaurantService {
 
     @Override
     public Restaurant createRestaurant(Restaurant restaurant) {
-        restaurantRepository.save(restaurant);
-        return restaurant;
+        if(restaurantExists(restaurant.getGoogleId())){
+          throw new RestaurantAlreadyExistsException("Wybrana restauracja znajduje sie juz w bazie");
+        }else{
+            restaurantRepository.save(restaurant);
+            return restaurant;
+        }
+
+    }
+
+    @Override
+    public boolean restaurantExists(String googleId) {
+        if(restaurantRepository.findRestaurantByGoogleId(googleId) != null){
+            return true;
+        }
+        return false;
     }
 
 }

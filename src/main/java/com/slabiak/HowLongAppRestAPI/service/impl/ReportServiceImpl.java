@@ -41,7 +41,7 @@ public class ReportServiceImpl implements ReportService {
         if(report.isPresent()){
             return report.get();
         } else{
-            throw new ReportNotFoundException(String.format("Report with id %d is not found.",reportId));
+            throw new ReportNotFoundException(String.format("Raport z id %d nieznaleziony",reportId));
         }
     }
 
