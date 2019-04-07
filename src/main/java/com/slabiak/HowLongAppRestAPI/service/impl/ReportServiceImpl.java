@@ -57,7 +57,7 @@ public class ReportServiceImpl implements ReportService {
     public void deleteExpiredReports() {
         List<Report> allReports = getAllReports();
         for(Report report : allReports){
-            Date expire = HelperMethods.addMinutesToDate(30,report.getCreatedAt());
+            Date expire = HelperMethods.addMinutesToDate(60,report.getCreatedAt());
             Date now = new Date(System.currentTimeMillis());
             if(now.after(expire)){
                 deleteReportById(report.getId());
